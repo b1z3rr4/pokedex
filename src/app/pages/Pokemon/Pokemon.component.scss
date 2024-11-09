@@ -1,0 +1,68 @@
+$bg-color: #f8f9fa;
+$text-color: #333;
+$secondary-text-color: #666;
+$shadow-color: rgba(0, 0, 0, 0.1);
+$button-bg-color: #e0e0e0;
+$button-hover-color: #d5d5d5;
+
+main {
+  height: 100%;
+  width: 100%;
+  padding: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .hidden {
+    display: none;
+  }
+
+  .card {
+    display: flex;
+
+    width: 100%;
+    padding: 16px;
+    text-align: left;
+    position: relative;
+    border-radius: 12px;
+    background-color: $bg-color;
+    font-family: Arial, sans-serif;
+    box-shadow: 0 4px 8px $shadow-color;
+
+    .image {
+      width: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      .animated {
+        width: 300px;
+      }
+    }
+
+    .details {
+
+      .header-info {
+
+        .pokemon-action-name {
+          display: flex;
+          gap: 12px;
+
+          .audio-btn {
+            all: unset;
+
+            cursor: pointer;
+          }
+        }
+
+        .pokemon-number {
+          font-weight: 700;
+        }
+
+        .pokemon-name {
+          text-transform: capitalize;
+        }
+      }
+    }
+  }
+}

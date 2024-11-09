@@ -1,3 +1,29 @@
-<h1>
-  Pokemon: #{{ pokemon?.id }}
-</h1>
+<main>
+  <div class="card">
+
+
+    <div class="image">
+      <img class="animated" [src]="getImageUrl()" />
+    </div>
+
+
+    <div class="details">
+      <div class="header-info">
+        <span class="pokemon-number">#{{ formatNumber() }}</span>
+        <div class="pokemon-action-name">
+          <h1 class="pokemon-name">{{ pokemon?.name }}</h1>
+
+          <div class="hidden" plyr style="width: 640px;" [plyrType]="'audio'" [plyrSources]="audioSource"
+            (plyrInit)="player = $event"></div>
+
+          <button (click)="play()" class="audio-btn">
+            <span class="material-symbols-outlined">
+              volume_up
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</main>
