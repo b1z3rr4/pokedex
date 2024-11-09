@@ -1,0 +1,23 @@
+main {
+  width: 100%;
+  padding: 20px;
+  margin: 0 auto;
+  max-width: 1200px;
+
+  .grid {
+    gap: 20px;
+    width: 100%;
+    display: grid;
+    justify-content: stretch;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+
+    .grid-card {
+      width: 100%;
+      transition: transform 0.3s ease;
+
+      &:hover {
+        transform: translateY(-10px);
+      }
+    }
+  }
+}

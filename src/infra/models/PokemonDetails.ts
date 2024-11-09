@@ -1,4 +1,5 @@
 import { PokemonEntry } from "./PokemonEntry";
+import { Generations } from "./PokemonGenerations";
 import { SprintImage, SprintOthers } from "./PokemonSprint";
 
 export interface PokemonDetails {

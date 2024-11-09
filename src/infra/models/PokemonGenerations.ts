@@ -54,7 +54,7 @@ interface GenerationVI {
   "x-y": Pick<Sprite, "front_default" | "front_shiny" | "front_female" | "front_shiny_female">;
 }
 
-interface Generations {
+export interface Generations {
   "generation-i": GenerationI;
   "generation-ii": GenerationII;
   "generation-iii": GenerationIII;

@@ -1,0 +1,25 @@
+<div class="card">
+  <div class="top-info">
+    <div class="type-tags">
+      @for (type of types; track type.slot) {
+        <span [ngClass]="['type-tag', type.type.name]">{{ type.type.name }}</span>
+      }
+    </div>
+    <span class="number">#{{ number }}</span>
+  </div>
+  <div class="header">
+    <h2>{{ name }}</h2>
+  </div>
+
+  <div class="body">
+    <div class="texts">
+      <p class="description">
+        {{ description }}
+      </p>
+      <button class="know-more-btn">Know More</button>
+    </div>
+
+    <img [src]="imageUrl" [alt]="name"
+      class="image" />
+  </div>
+</div>
