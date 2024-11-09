@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { PokemonDetails } from '../../../infra/models/PokemonDetails';
 import { PokemonSpecie } from '../../../infra/models/PokemonSpecie';
 import { PlyrModule, PlyrComponent } from '@atom-platform/ngx-plyr';
@@ -24,18 +24,22 @@ export class PokemonComponent implements OnInit {
 
   audioSource: any = [];
 
-  constructor(private route: ActivatedRoute, private pokemonDetails: PokemonDetailsService) { }
-
-  ngOnInit() {
-    this.route.params.subscribe({
+  constructor(private route: ActivatedRoute, private pokemonDetails: PokemonDetailsService, private routerNavigate: Router) {
+    route.params.subscribe({
       next: (params) => {
-        this.id = params['id']
+        this.id = params['id'];
+        this.getPokemon(this.id);
       }
     });
+   }
 
-    this.pokemonDetails.getPokemon(this.id).subscribe({
+  ngOnInit() {
+    this.getPokemon(this.id);
+  }
+
+  getPokemon(id: string) {
+    this.pokemonDetails.getPokemon(id).subscribe({
       next: (response) => {
-        console.log(response)
         this.pokemon = response;
         this.audioSource = [
           {
@@ -49,6 +53,18 @@ export class PokemonComponent implements OnInit {
         ]
       }
     })
+  }
+
+  goNextPokemon() {
+    const pokemonId =  (Number(this.id) + 1).toString();
+
+    this.routerNavigate.navigate(['/details', pokemonId]);
+  }
+
+  goPreviousPokemon() {
+    const pokemonId =  Number(this.id) > 1 ? (Number(this.id) - 1).toString() : '1';
+
+    this.routerNavigate.navigate(['/details', pokemonId]);
   }
 
   getImageUrl() {

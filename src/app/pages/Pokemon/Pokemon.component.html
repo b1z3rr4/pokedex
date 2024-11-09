@@ -1,6 +1,8 @@
 <main>
-  <div class="card">
+  <button (click)="goPreviousPokemon()">Anterior</button>
+  <button (click)="goNextPokemon()">Próximo</button>
 
+  <div class="card">
 
     <div class="image">
       <img class="animated" [src]="getImageUrl()" />
