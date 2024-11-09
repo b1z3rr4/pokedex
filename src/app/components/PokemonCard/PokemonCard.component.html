@@ -16,7 +16,9 @@
       <p class="description">
         {{ description }}
       </p>
-      <button class="know-more-btn">Know More</button>
+      <a class="know-more-btn" [routerLink]="'/details/' + id">
+        Know More
+      </a>
     </div>
 
     <img [src]="imageUrl" [alt]="name"
