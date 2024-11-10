@@ -9,7 +9,7 @@ main {
     width: 100%;
     display: grid;
     justify-content: stretch;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
 
     .grid-card {
       width: 100%;
@@ -77,4 +77,16 @@ main {
     }
   }
 
+  .logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 0;
+  }
+
+  @media (min-width: 960px) {
+    .grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
 }

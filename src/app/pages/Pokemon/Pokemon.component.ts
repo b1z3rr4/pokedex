@@ -8,13 +8,14 @@ import { PokemonDetailsService } from '../../../infra/services/PokemonDetails.ts
 import { LANGUAGE } from '../../../infra/constants/language';
 import { Title } from '@angular/platform-browser';
 import { capitalize } from '../../../infra/utils/capitalize';
+import { AppHeaderComponent } from "../../components/AppHeader/AppHeader.component";
 
 @Component({
   standalone: true,
   selector: 'app-Pokemon',
   templateUrl: './Pokemon.component.html',
   styleUrls: ['./Pokemon.component.scss'],
-  imports: [CommonModule, PlyrModule, RouterLink],
+  imports: [CommonModule, PlyrModule, RouterLink, AppHeaderComponent],
 })
 export class PokemonComponent implements OnInit {
   id: string = '';

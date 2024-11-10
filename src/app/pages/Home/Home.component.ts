@@ -1,4 +1,4 @@
-import { AfterViewChecked, Component, HostListener, OnDestroy, OnInit, Renderer2 } from '@angular/core';
+import { AfterViewChecked, Component, HostListener, OnInit } from '@angular/core';
 import { ListPokemonService } from '../../../infra/services/ListPokemon/ListPokemon.service';
 import { PokemonDetails } from '../../../infra/models/PokemonDetails';
 import { PokemonCardComponent } from "../../components/PokemonCard/PokemonCard.component";
@@ -10,13 +10,15 @@ import { StateManagerService } from '../../../infra/services/StateManager/StateM
 import { KEYS } from '../../../infra/constants/keys';
 import { CARD_HEIGHT } from '../../../infra/constants/variables';
 import { ActivatedRoute, Router } from '@angular/router';
+import { LogoPokedexComponent } from "../../components/LogoPokedex/LogoPokedex.component";
+import { AppHeaderComponent } from "../../components/AppHeader/AppHeader.component";
 
 @Component({
   selector: 'app-Home',
   standalone: true,
   templateUrl: './Home.component.html',
   styleUrls: ['./Home.component.scss'],
-  imports: [PokemonCardComponent, FormsModule]
+  imports: [PokemonCardComponent, FormsModule, LogoPokedexComponent, AppHeaderComponent]
 })
 export class HomeComponent implements OnInit, AfterViewChecked {
   pokemons: Array<PokemonDetails & PokemonSpecie> = [];
@@ -25,7 +27,17 @@ export class HomeComponent implements OnInit, AfterViewChecked {
   loadMore = 21;
   isLoading = false;
 
-  constructor(private stateManagerService: StateManagerService, private listPokemon: ListPokemonService, private route: ActivatedRoute, private router: Router) { }
+  screenWidth: number = window.innerWidth;
+  prevScreenWidth: number = window.innerWidth;
+
+  minWidth: number = 223;
+  maxWidth: number = 495;
+
+  logoWidth: number = this.maxWidth;
+
+  constructor(private stateManagerService: StateManagerService, private listPokemon: ListPokemonService, private route: ActivatedRoute, private router: Router) {
+    this.updateLogoWidth();
+  }
 
   // ng directives
   ngOnInit() {
@@ -134,6 +146,14 @@ export class HomeComponent implements OnInit, AfterViewChecked {
     }
   }
 
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    this.prevScreenWidth = this.screenWidth;
+    this.screenWidth = event.target.innerWidth;
+
+    this.updateLogoWidth();
+  }
+
   // services
   getPokemonsList(offset: number, limit: number) {
     this.listPokemon.getPokemons().subscribe({
@@ -177,7 +197,12 @@ export class HomeComponent implements OnInit, AfterViewChecked {
     const element = document.getElementById(fragment);
 
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+      const rect = element.getBoundingClientRect();
+      const isVisible = rect.top >= 0 && rect.left >= 0 && rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) && rect.right <= (window.innerWidth || document.documentElement.clientWidth);
+
+      if (!isVisible) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
 
       this.clearFragment();
     }
@@ -189,4 +214,9 @@ export class HomeComponent implements OnInit, AfterViewChecked {
       fragment: undefined,
     });
   }
+
+  updateLogoWidth() {
+    this.logoWidth = Math.max(this.minWidth, Math.min(this.maxWidth, this.screenWidth * 0.4));
+  }
+
 }
