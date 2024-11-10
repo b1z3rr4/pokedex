@@ -21,8 +21,6 @@ export class CacheService {
   public getCachedData<T>(key: string): T | null {
     const cachedData = this.cache.get(key);
 
-    console.log({ key, cachedData})
-
     if (cachedData && !this.isCacheExpired(cachedData.timestamp)) {
       return cachedData.data;
     }

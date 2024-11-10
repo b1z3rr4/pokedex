@@ -11,7 +11,6 @@ import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-Home',
   standalone: true,
-  providers: [ListPokemonService],
   templateUrl: './Home.component.html',
   styleUrls: ['./Home.component.scss'],
   imports: [PokemonCardComponent, FormsModule]
@@ -40,7 +39,6 @@ export class HomeComponent implements OnInit {
       next: (data) => {
         this.pokemonList.next(data.results);
       },
-      error: (err) => console.log(err)
     })
 
     this.pokemonList$.subscribe((pokemonList) => {
