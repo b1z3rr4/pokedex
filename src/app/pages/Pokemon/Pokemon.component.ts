@@ -1,17 +1,18 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute, Router } from "@angular/router";
+import { ActivatedRoute, Router, RouterLink } from "@angular/router";
 import { PokemonDetails } from '../../../infra/models/PokemonDetails';
-import { PokemonSpecie } from '../../../infra/models/PokemonSpecie';
+import { FlavorText, PokemonSpecie } from '../../../infra/models/PokemonSpecie';
 import { PlyrModule, PlyrComponent } from '@atom-platform/ngx-plyr';
 import { PokemonDetailsService } from '../../../infra/services/PokemonDetails.ts/PokemonDetails.service';
+import { LANGUAGE } from '../../../infra/constants/language';
 
 @Component({
   standalone: true,
   selector: 'app-Pokemon',
   templateUrl: './Pokemon.component.html',
   styleUrls: ['./Pokemon.component.scss'],
-  imports: [CommonModule, PlyrModule],
+  imports: [CommonModule, PlyrModule, RouterLink],
 })
 export class PokemonComponent implements OnInit {
   private id: string = '';
@@ -31,11 +32,9 @@ export class PokemonComponent implements OnInit {
         this.getPokemon(this.id);
       }
     });
-   }
-
-  ngOnInit() {
-    this.getPokemon(this.id);
   }
+
+  ngOnInit() {}
 
   getPokemon(id: string) {
     this.pokemonDetails.getPokemon(id).subscribe({
@@ -77,5 +76,26 @@ export class PokemonComponent implements OnInit {
 
   play(): void {
     this.player?.play();
+  }
+
+  getDescription(flavorText?: Array<FlavorText>) {
+    return flavorText?.find((flavor) => flavor.language.name === LANGUAGE)?.flavor_text || '';
+  }
+
+  getStatsDescription(stats: string) {
+    const statsMap: Record<string, string> = {
+      hp: 'HP',
+      attack: 'ATK',
+      defense: 'DEF',
+      'special-attack': 'SpA',
+      'special-defense': 'SpD',
+      speed: 'SPD'
+    }
+
+    return statsMap[stats];
+  }
+
+  getAbilityFormatted(ability: string) {
+    return ability.replace('-', ' ');
   }
 }

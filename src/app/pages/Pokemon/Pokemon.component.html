@@ -1,7 +1,13 @@
-<main>
-  <button (click)="goPreviousPokemon()">Anterior</button>
-  <button (click)="goNextPokemon()">Próximo</button>
+<header>
+  <a [routerLink]="'/'" class="back-btn">
+    <span class="material-symbols-outlined">
+      arrow_back
+    </span>
+    <p>Back</p>
+  </a>
+</header>
 
+<main>
   <div class="card">
 
     <div class="image">
@@ -12,6 +18,7 @@
     <div class="details">
       <div class="header-info">
         <span class="pokemon-number">#{{ formatNumber() }}</span>
+
         <div class="pokemon-action-name">
           <h1 class="pokemon-name">{{ pokemon?.name }}</h1>
 
@@ -23,6 +30,50 @@
               volume_up
             </span>
           </button>
+        </div>
+
+        <div class="type-tags">
+          @for (type of pokemon?.types; track type.type.name) {
+          <span [ngClass]="['type-tag', type.type.name]">{{ type.type.name }}</span>
+          }
+        </div>
+
+        <div>
+          <p class="description">{{ getDescription(pokemon?.flavor_text_entries)}}</p>
+        </div>
+
+        <div class="sizes">
+          <div class="size">
+            <p>Height: </p>
+            <span>{{ pokemon?.height }}</span>
+          </div>
+          <div class="size">
+            <p>Weight: </p>
+            <span>{{ pokemon?.weight }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="container">
+        <h2>Stats</h2>
+        <div class="stats-grid">
+          @for (stats of pokemon?.stats; track stats.stat.name) {
+          <div [ngClass]="['stats-item', stats.stat.name]">
+            <p class="stats-title"> {{ getStatsDescription(stats.stat.name) }} </p>
+            <p> {{ stats.base_stat }} </p>
+          </div>
+          }
+        </div>
+      </div>
+
+      <div class="container">
+        <h2>Abilities</h2>
+        <div class="abilities">
+          @for (ability of pokemon?.abilities; track ability.ability.name) {
+            <div class="ability">
+              <p>{{ getAbilityFormatted(ability.ability.name) }}</p>
+            </div>
+          }
         </div>
       </div>
     </div>

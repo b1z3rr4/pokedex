@@ -3,6 +3,7 @@ import { ListPokemonService } from '../../../infra/services/ListPokemon/ListPoke
 import { PokemonDetails } from '../../../infra/models/PokemonDetails';
 import { PokemonCardComponent } from "../../components/PokemonCard/PokemonCard.component";
 import { FlavorText, PokemonSpecie } from '../../../infra/models/PokemonSpecie';
+import { LANGUAGE } from '../../../infra/constants/language';
 
 @Component({
   selector: 'app-Home',
@@ -14,7 +15,6 @@ import { FlavorText, PokemonSpecie } from '../../../infra/models/PokemonSpecie';
 })
 export class HomeComponent implements OnInit {
   public pokemons: Array<PokemonDetails & PokemonSpecie> = [];
-  private language = 'en';
 
   constructor(private listPokemon: ListPokemonService) { }
 
@@ -28,7 +28,7 @@ export class HomeComponent implements OnInit {
   }
 
   getDescription(flavorText: Array<FlavorText>) {
-    return flavorText.find((flavor) => flavor.language.name === this.language)?.flavor_text || '';
+    return flavorText.find((flavor) => flavor.language.name === LANGUAGE)?.flavor_text || '';
   }
 
 }

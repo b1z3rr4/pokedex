@@ -5,8 +5,25 @@ $shadow-color: rgba(0, 0, 0, 0.1);
 $button-bg-color: #e0e0e0;
 $button-hover-color: #d5d5d5;
 
+header {
+  padding: 12px;
+
+  .back-btn {
+    gap: 6px;
+    display: flex;
+    color: black;
+    font-size: 10px;
+    align-items: center;
+    text-decoration: none;
+    font-weight: 600;
+
+    p {
+      font-size: 16px;
+    }
+  }
+}
+
 main {
-  height: 100%;
   width: 100%;
   padding: 40px;
   display: flex;
@@ -19,19 +36,20 @@ main {
   }
 
   .card {
-    display: flex;
-
+    gap: 40px;
     width: 100%;
-    padding: 16px;
+    display: flex;
+    padding: 40px;
     text-align: left;
+    max-width: 1070px;
     position: relative;
     border-radius: 12px;
-    background-color: $bg-color;
+    background-color: #fff;
     font-family: Arial, sans-serif;
     box-shadow: 0 4px 8px $shadow-color;
 
     .image {
-      width: 50%;
+      width: 60%;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -42,8 +60,15 @@ main {
     }
 
     .details {
+      gap: 24px;
+      width: 40%;
+      display: flex;
+      flex-direction: column;
 
       .header-info {
+        gap: 12px;
+        display: flex;
+        flex-direction: column;
 
         .pokemon-action-name {
           display: flex;
@@ -66,4 +91,172 @@ main {
       }
     }
   }
+
+  .type-tags {
+    gap: 8px;
+    display: flex;
+    margin-bottom: 8px;
+    text-transform: capitalize;
+
+    .type-tag {
+      color: #fff;
+      font-size: 12px;
+      padding: 4px 8px;
+      font-weight: bold;
+      text-align: center;
+      border-radius: 8px;
+      background-color: #f5f5f5;
+    }
+
+    .normal {
+      background-color: #a8a878;
+    }
+    .fire {
+      background-color: #f08030;
+    }
+    .water {
+      background-color: #6890f0;
+    }
+    .electric {
+      background-color: #f8d030;
+    }
+    .grass {
+      background-color: #78c850;
+    }
+    .ice {
+      background-color: #98d8d8;
+    }
+    .fighting {
+      background-color: #c03028;
+    }
+    .poison {
+      background-color: #a040a0;
+    }
+    .ground {
+      background-color: #e0c068;
+    }
+    .flying {
+      background-color: #a890f0;
+    }
+    .psychic {
+      background-color: #f85888;
+    }
+    .bug {
+      background-color: #a8b820;
+    }
+    .rock {
+      background-color: #b8a038;
+    }
+    .ghost {
+      background-color: #705898;
+    }
+    .dragon {
+      background-color: #7038f8;
+    }
+    .dark {
+      background-color: #705848;
+    }
+    .steel {
+      background-color: #b8b8d0;
+    }
+    .fairy {
+      background-color: #f8a0d0;
+    }
+  }
+
+  .description {
+    text-transform: lowercase;
+  }
+
+  .sizes {
+    display: flex;
+    gap: 12px;
+
+    .size {
+      width: 100%;
+      display: flex;
+      font-size: 17px;
+      max-width: 160px;
+      padding: 8px 16px;
+      border-radius: 10px;
+      background-color: #F6F8FC;
+      justify-content: space-between;
+
+      p {
+        font-weight: 700;
+      }
+    }
+  }
+
+  .container {
+    gap: 24px;
+    display: flex;
+    flex-direction: column;
+
+    .stats-grid {
+      gap: 20px;
+      width: 100%;
+      display: grid;
+      justify-content: stretch;
+      grid-template-columns: repeat(2, minmax(100px, 1fr));
+
+      .stats-item {
+        width: 100%;
+        display: flex;
+        padding: 12px;
+        border-radius: 4px;
+        justify-content: space-between;
+
+        .stats-title {
+          font-weight: 700;
+          text-transform: capitalize;
+        }
+      }
+
+      .hp {
+        background-color: #DF2140;
+      }
+
+      .attack {
+        background-color: #FF994D;
+      }
+
+      .defense {
+        background-color: #EECD3D;
+      }
+
+      .special-attack {
+        background-color: #85DDFF;
+      }
+
+      .special-defense {
+        background-color: #96DA83;
+      }
+
+      .speed {
+        background-color: #FB94A8;
+      }
+    }
+  }
+
+  .abilities {
+    display: flex;
+    gap: 12px;
+
+    .ability {
+      width: 100%;
+      display: flex;
+      font-size: 17px;
+      max-width: 160px;
+      padding: 8px 16px;
+      border-radius: 10px;
+      background-color: #F6F8FC;
+      justify-content: space-between;
+
+      p {
+        text-transform: capitalize;
+      }
+    }
+  }
+
 }
