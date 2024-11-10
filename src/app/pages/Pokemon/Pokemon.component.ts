@@ -9,6 +9,7 @@ import { LANGUAGE } from '../../../infra/constants/language';
 import { Title } from '@angular/platform-browser';
 import { capitalize } from '../../../infra/utils/capitalize';
 import { AppHeaderComponent } from "../../components/AppHeader/AppHeader.component";
+import { convertToMeters, gramsToKilograms } from '../../../infra/utils/converters';
 
 @Component({
   standalone: true,
@@ -124,5 +125,21 @@ export class PokemonComponent implements OnInit {
 
   getAbilityFormatted(ability: string) {
     return ability.replace('-', ' ');
+  }
+
+  weightFormatted(grams?: number) {
+    if (grams) {
+      return gramsToKilograms(grams);
+    }
+
+    return '0kg';
+  }
+
+  heightFormatted(height?: number) {
+    if (height) {
+      return convertToMeters(height);
+    }
+
+    return '0m';
   }
 }

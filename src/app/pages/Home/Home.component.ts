@@ -147,7 +147,10 @@ export class HomeComponent implements OnInit, AfterViewChecked {
     const scrollPosition = window.scrollY + window.innerHeight;
     const documentHeight = document.documentElement.scrollHeight;
 
+
     if (scrollPosition >= documentHeight - (CARD_HEIGHT * 3) && this.searchTerm.length < 3) {
+      this.clearFragment();
+
       const offset = this.stateManagerService.getCurrentState(KEYS.offset, 0);
       const newOffset = offset + this.loadMore;
 
@@ -218,6 +221,7 @@ export class HomeComponent implements OnInit, AfterViewChecked {
 
       this.clearFragment();
     }
+
   }
 
   private clearFragment() {
