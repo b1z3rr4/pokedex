@@ -1,10 +1,26 @@
 <main>
+  <div class="search">
+    <div class="search-bar">
+      <input
+      type="text"
+      class="search-input"
+      [(ngModel)]="searchTerm"
+      placeholder="Search eg, ditto or pikachu"
+      (ngModelChange)="onSearchChange($event)"
+    />
+    </div>
+    <button class="search-button">
+      <span class="material-symbols-outlined">search</span>
+    </button>
+  </div>
+
   <div class="grid">
     @for (pokemon of pokemons; track pokemon.id) {
-      <div class="grid-card">
-        <app-PokemonCard [id]="pokemon.id" [name]="pokemon.name" [description]="getDescription(pokemon.flavor_text_entries)" [number]="pokemon.id.toString()"
-          [imageUrl]="pokemon.sprites.front_default" [types]="pokemon.types"></app-PokemonCard>
-      </div>
+    <div class="grid-card">
+      <app-PokemonCard [id]="pokemon.id" [name]="pokemon.name"
+        [description]="getDescription(pokemon.flavor_text_entries)" [number]="pokemon.id.toString()"
+        [imageUrl]="pokemon.sprites.front_default" [types]="pokemon.types"></app-PokemonCard>
+    </div>
     }
   </div>
 </main>
