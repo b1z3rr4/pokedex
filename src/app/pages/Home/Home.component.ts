@@ -9,7 +9,7 @@ import { FormsModule } from '@angular/forms';
 import { StateManagerService } from '../../../infra/services/StateManager/StateManager.service';
 import { KEYS } from '../../../infra/constants/keys';
 import { CARD_HEIGHT } from '../../../infra/constants/variables';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-Home',
@@ -25,7 +25,7 @@ export class HomeComponent implements OnInit, AfterViewChecked {
   loadMore = 21;
   isLoading = false;
 
-  constructor(private stateManagerService: StateManagerService, private listPokemon: ListPokemonService, private route: ActivatedRoute) { }
+  constructor(private stateManagerService: StateManagerService, private listPokemon: ListPokemonService, private route: ActivatedRoute, private router: Router) { }
 
   // ng directives
   ngOnInit() {
@@ -178,6 +178,15 @@ export class HomeComponent implements OnInit, AfterViewChecked {
 
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
+
+      this.clearFragment();
     }
+  }
+
+  private clearFragment() {
+    this.router.navigate([], {
+      queryParamsHandling: 'preserve',
+      fragment: undefined,
+    });
   }
 }
