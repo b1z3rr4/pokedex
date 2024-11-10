@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { ListPokemonService } from '../../../infra/services/ListPokemon/ListPokemon.service';
 import { PokemonDetails } from '../../../infra/models/PokemonDetails';
 import { PokemonCardComponent } from "../../components/PokemonCard/PokemonCard.component";
@@ -34,12 +34,14 @@ export class HomeComponent implements OnInit {
 
   private isLoading: boolean = false;
 
-  constructor(private listPokemon: ListPokemonService) {
+  constructor(private listPokemon: ListPokemonService) { }
+
+  ngOnInit() {
     this.listPokemon.getPokemons().subscribe({
       next: (data) => {
         this.pokemonList.next(data.results);
       },
-    })
+    });
 
     this.pokemonList$.subscribe((pokemonList) => {
       const list = this.cloneList<PokemonEntry>(pokemonList);
@@ -82,8 +84,6 @@ export class HomeComponent implements OnInit {
       this.getPokemonsDetails(pokemonList);
     });
   }
-
-  ngOnInit() {}
 
   onSearchChange(value: string): void {
     this.searchName.next(value);

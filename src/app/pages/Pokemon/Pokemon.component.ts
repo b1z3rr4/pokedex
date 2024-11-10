@@ -25,16 +25,16 @@ export class PokemonComponent implements OnInit {
 
   audioSource: any = [];
 
-  constructor(private route: ActivatedRoute, private pokemonDetails: PokemonDetailsService, private routerNavigate: Router) {
-    route.params.subscribe({
+  constructor(private route: ActivatedRoute, private pokemonDetails: PokemonDetailsService, private routerNavigate: Router) {}
+
+  ngOnInit() {
+    this.route.params.subscribe({
       next: (params) => {
         this.id = params['id'];
         this.getPokemon(this.id);
       }
     });
   }
-
-  ngOnInit() {}
 
   getPokemon(id: string) {
     this.pokemonDetails.getPokemon(id).subscribe({
@@ -55,7 +55,7 @@ export class PokemonComponent implements OnInit {
   }
 
   goNextPokemon() {
-    const pokemonId =  (Number(this.id) + 1).toString();
+    const pokemonId = (Number(this.id) + 1).toString();
 
     this.routerNavigate.navigate(['/details', pokemonId]);
   }
