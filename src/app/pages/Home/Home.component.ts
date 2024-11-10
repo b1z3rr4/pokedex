@@ -12,13 +12,14 @@ import { CARD_HEIGHT } from '../../../infra/constants/variables';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LogoPokedexComponent } from "../../components/LogoPokedex/LogoPokedex.component";
 import { AppHeaderComponent } from "../../components/AppHeader/AppHeader.component";
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-Home',
   standalone: true,
   templateUrl: './Home.component.html',
   styleUrls: ['./Home.component.scss'],
-  imports: [PokemonCardComponent, FormsModule, LogoPokedexComponent, AppHeaderComponent]
+  imports: [PokemonCardComponent, FormsModule, LogoPokedexComponent, AppHeaderComponent, CommonModule]
 })
 export class HomeComponent implements OnInit, AfterViewChecked {
   pokemons: Array<PokemonDetails & PokemonSpecie> = [];
@@ -34,6 +35,8 @@ export class HomeComponent implements OnInit, AfterViewChecked {
   maxWidth: number = 495;
 
   logoWidth: number = this.maxWidth;
+
+  noItemsFound = false;
 
   constructor(private stateManagerService: StateManagerService, private listPokemon: ListPokemonService, private route: ActivatedRoute, private router: Router) {
     this.updateLogoWidth();
@@ -109,9 +112,18 @@ export class HomeComponent implements OnInit, AfterViewChecked {
         if (search.length < 3) {
           const paginated = allPokemons.splice(0, offset + this.limit);
 
+          this.noItemsFound = false;
+
           this.setPaginatedItems(paginated);
         } else {
           const filters = allPokemons.filter(({ name }) => name.toLowerCase().search(search.toLowerCase()) !== -1);
+
+          this.noItemsFound = false;
+
+          if (filters.length === 0) {
+            this.noItemsFound = true;
+          }
+
           this.setPaginatedItems(filters);
         }
       }

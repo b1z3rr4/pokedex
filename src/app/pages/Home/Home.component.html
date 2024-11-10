@@ -20,7 +20,8 @@
     </button>
   </div>
 
-  <div class="grid">
+
+  <div class="grid" *ngIf="!noItemsFound; else noItemsTemplate">
     @for (pokemon of pokemons; track pokemon.id) {
     <div class="grid-card" [id]="pokemon.id">
       <app-PokemonCard [id]="pokemon.id" [name]="pokemon.name"
@@ -29,4 +30,8 @@
     </div>
     }
   </div>
+
+  <ng-template #noItemsTemplate>
+    <p class="message-report">No items found!</p>
+  </ng-template>
 </main>

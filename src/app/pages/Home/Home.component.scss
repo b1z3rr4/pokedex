@@ -84,6 +84,12 @@ main {
     padding: 40px 0;
   }
 
+  .message-report {
+    color: #666;
+    text-align: center;
+    margin: 40px 0;
+  }
+
   @media (min-width: 960px) {
     .grid {
       grid-template-columns: repeat(3, 1fr);
