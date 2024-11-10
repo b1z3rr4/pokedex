@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from "@angular/router";
 import { PokemonDetails } from '../../../infra/models/PokemonDetails';
 import { FlavorText, PokemonSpecie } from '../../../infra/models/PokemonSpecie';
@@ -15,8 +15,9 @@ import { LANGUAGE } from '../../../infra/constants/language';
   imports: [CommonModule, PlyrModule, RouterLink],
 })
 export class PokemonComponent implements OnInit {
-  private id: string = '';
-  public pokemon: (PokemonDetails & PokemonSpecie) | null = null;
+  id: string = '';
+
+  pokemon: (PokemonDetails & PokemonSpecie) | null = null;
 
   @ViewChild(PlyrComponent)
   plyr: PlyrComponent | undefined;
@@ -25,7 +26,10 @@ export class PokemonComponent implements OnInit {
 
   audioSource: any = [];
 
-  constructor(private route: ActivatedRoute, private pokemonDetails: PokemonDetailsService, private routerNavigate: Router) {}
+  isGifLoaded: boolean = false;
+  isGifURL: boolean = false;
+
+  constructor(private route: ActivatedRoute, private pokemonDetails: PokemonDetailsService, private routerNavigate: Router, private cdr: ChangeDetectorRef) {}
 
   ngOnInit() {
     this.route.params.subscribe({
@@ -67,7 +71,20 @@ export class PokemonComponent implements OnInit {
   }
 
   getImageUrl() {
-    return this.pokemon?.sprites.versions['generation-v']['black-white'].animated.front_default || this.pokemon?.sprites.front_default
+    const gifUrl = this.pokemon?.sprites.versions['generation-v']['black-white'].animated.front_default;
+    const pngUrl = this.pokemon?.sprites.front_default;
+
+    if (this.isGifLoaded) {
+      this.isGifURL = true;
+      return gifUrl;
+    }
+
+    return pngUrl;
+  }
+
+  onGifLoad() {
+    this.isGifLoaded = true;
+    this.cdr.detectChanges();
   }
 
   formatNumber() {

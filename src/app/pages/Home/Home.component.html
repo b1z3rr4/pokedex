@@ -6,17 +6,18 @@
       class="search-input"
       [(ngModel)]="searchTerm"
       placeholder="Search eg, ditto or pikachu"
-      (ngModelChange)="onSearchChange($event)"
+      (ngModelChange)="onClearInput(searchTerm)"
+      (keydown.enter)="onSearchChange(searchTerm)"
     />
     </div>
-    <button class="search-button">
+    <button class="search-button" (click)="onSearchChange(searchTerm)" [disabled]="searchTerm.length < 3">
       <span class="material-symbols-outlined">search</span>
     </button>
   </div>
 
   <div class="grid">
     @for (pokemon of pokemons; track pokemon.id) {
-    <div class="grid-card">
+    <div class="grid-card" [id]="pokemon.id">
       <app-PokemonCard [id]="pokemon.id" [name]="pokemon.name"
         [description]="getDescription(pokemon.flavor_text_entries)" [number]="pokemon.id.toString()"
         [imageUrl]="pokemon.sprites.front_default" [types]="pokemon.types"></app-PokemonCard>

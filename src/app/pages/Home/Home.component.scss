@@ -60,10 +60,20 @@ main {
       justify-content: center;
       background-color: #ff5a5f;
       box-shadow: 0px 4px 20.3px 2px #00000040;
-    }
 
-    .search-button .material-symbols-outlined {
-      font-size: 24px;
+      &:disabled {
+        background-color: #ff9fa3;
+        cursor: not-allowed;
+        box-shadow: none;
+
+        & .material-symbols-outlined {
+          color: #eaeaea;
+        }
+      }
+
+      & .material-symbols-outlined {
+        font-size: 24px;
+      }
     }
   }
 

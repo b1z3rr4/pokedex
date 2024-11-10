@@ -122,8 +122,15 @@ $button-hover-color: #d5d5d5;
 
       .description {
         font-size: 14px;
+        line-height: 1.4;
+        overflow: hidden;
+        max-height: 57px;
         margin-bottom: 12px;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        text-overflow: ellipsis;
         color: $secondary-text-color;
+        -webkit-box-orient: vertical;
       }
     }
 

@@ -15,10 +15,28 @@ export class PokemonDetailsService {
   getPokemon(id: string): Observable<PokemonDetails & PokemonSpecie> {
     const url = POKEMON_API + 'pokemon' + `/${id}/`;
 
-    const cachedData = this.cacheService.getCachedData<PokemonDetails & PokemonSpecie>(url);
+    const cachedData = this.cacheService.getCachedData<PokemonDetails>(url);
 
     if (cachedData) {
-      return of(cachedData);
+      const cachedDataSpecie = this.cacheService.getCachedData<PokemonSpecie>(cachedData.species.url);
+      if (cachedDataSpecie) {
+        return of({ ...cachedData, ...cachedDataSpecie });
+      }
+
+      return of(cachedData).pipe(
+        mergeMap(response => {
+          return this.getNextUrl<PokemonSpecie>(response.species.url).pipe(
+            map((specieInfo) => ({
+              ...response,
+              ...specieInfo,
+            }))
+          );
+        }),
+        map(pokemonDetails => {
+          this.cacheService.cacheData(id, pokemonDetails);
+          return pokemonDetails;
+        })
+      );
     }
 
     return this.httpClient.get<PokemonDetails>(url).pipe(

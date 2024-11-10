@@ -1,5 +1,5 @@
 <header>
-  <a [routerLink]="'/'" class="back-btn">
+  <a [routerLink]="['/']" [fragment]="id" class="back-btn">
     <span class="material-symbols-outlined">
       arrow_back
     </span>
@@ -11,9 +11,11 @@
   <div class="card">
 
     <div class="image">
-      <img class="animated" [src]="getImageUrl()" />
+      <img [ngClass]="{
+        'static': !isGifURL,
+        'animated': isGifURL
+      }" *ngIf="pokemon" [src]="getImageUrl()" (load)="onGifLoad()" [alt]="pokemon.name" />
     </div>
-
 
     <div class="details">
       <div class="header-info">
@@ -39,7 +41,7 @@
         </div>
 
         <div>
-          <p class="description">{{ getDescription(pokemon?.flavor_text_entries)}}</p>
+          <p class="description">{{ getDescription(pokemon?.flavor_text_entries) }}</p>
         </div>
 
         <div class="sizes">
@@ -70,9 +72,9 @@
         <h2>Abilities</h2>
         <div class="abilities">
           @for (ability of pokemon?.abilities; track ability.ability.name) {
-            <div class="ability">
-              <p>{{ getAbilityFormatted(ability.ability.name) }}</p>
-            </div>
+          <div class="ability">
+            <p>{{ getAbilityFormatted(ability.ability.name) }}</p>
+          </div>
           }
         </div>
       </div>

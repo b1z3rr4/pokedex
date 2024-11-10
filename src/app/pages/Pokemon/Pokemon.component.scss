@@ -6,7 +6,7 @@ $button-bg-color: #e0e0e0;
 $button-hover-color: #d5d5d5;
 
 header {
-  padding: 12px;
+  padding: 40px;
 
   .back-btn {
     gap: 6px;
@@ -56,6 +56,14 @@ main {
 
       .animated {
         width: 300px;
+        height: auto;
+        object-fit: contain;
+      }
+
+      .static {
+        width: 300px;
+        height: auto;
+        object-fit: contain;
       }
     }
 
@@ -165,7 +173,7 @@ main {
   }
 
   .description {
-    text-transform: lowercase;
+    text-transform: capitalize;
   }
 
   .sizes {
