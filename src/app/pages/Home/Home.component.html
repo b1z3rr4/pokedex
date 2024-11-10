@@ -20,6 +20,9 @@
     </button>
   </div>
 
+  <div *ngIf="isLoading && !noItemsFound;">
+    <app-Loader></app-Loader>
+  </div>
 
   <div class="grid" *ngIf="!noItemsFound; else noItemsTemplate">
     @for (pokemon of pokemons; track pokemon.id) {
@@ -34,4 +37,5 @@
   <ng-template #noItemsTemplate>
     <p class="message-report">No items found!</p>
   </ng-template>
+
 </main>

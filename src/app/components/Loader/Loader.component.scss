@@ -1,0 +1,21 @@
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.loader {
+  width: 100%;
+  margin: 80px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .svg-loader {
+    opacity: 0.1;
+    animation: rotate 2s linear infinite;
+  }
+}

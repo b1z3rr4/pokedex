@@ -13,13 +13,14 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { LogoPokedexComponent } from "../../components/LogoPokedex/LogoPokedex.component";
 import { AppHeaderComponent } from "../../components/AppHeader/AppHeader.component";
 import { CommonModule } from '@angular/common';
+import { LoaderComponent } from "../../components/Loader/Loader.component";
 
 @Component({
   selector: 'app-Home',
   standalone: true,
   templateUrl: './Home.component.html',
   styleUrls: ['./Home.component.scss'],
-  imports: [PokemonCardComponent, FormsModule, LogoPokedexComponent, AppHeaderComponent, CommonModule]
+  imports: [PokemonCardComponent, FormsModule, LogoPokedexComponent, AppHeaderComponent, CommonModule, LoaderComponent]
 })
 export class HomeComponent implements OnInit, AfterViewChecked {
   pokemons: Array<PokemonDetails & PokemonSpecie> = [];
@@ -155,7 +156,6 @@ export class HomeComponent implements OnInit, AfterViewChecked {
       const newOffset = offset + this.loadMore;
 
       if (!this.isLoading && newOffset < 1011) {
-        this.isLoading = true;
         this.stateManagerService.setState(KEYS.offset, newOffset);
       }
     }
