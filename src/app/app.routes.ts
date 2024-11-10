@@ -5,6 +5,7 @@ import { PokemonComponent } from './pages/Pokemon/Pokemon.component';
 export const routes: Routes = [
   {
     path: '',
+    title: 'PokeDex | Home',
     component: HomeComponent
   },
   {

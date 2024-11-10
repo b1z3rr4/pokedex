@@ -6,6 +6,8 @@ import { FlavorText, PokemonSpecie } from '../../../infra/models/PokemonSpecie';
 import { PlyrModule, PlyrComponent } from '@atom-platform/ngx-plyr';
 import { PokemonDetailsService } from '../../../infra/services/PokemonDetails.ts/PokemonDetails.service';
 import { LANGUAGE } from '../../../infra/constants/language';
+import { Title } from '@angular/platform-browser';
+import { capitalize } from '../../../infra/utils/capitalize';
 
 @Component({
   standalone: true,
@@ -29,13 +31,20 @@ export class PokemonComponent implements OnInit {
   isGifLoaded: boolean = false;
   isGifURL: boolean = false;
 
-  constructor(private route: ActivatedRoute, private pokemonDetails: PokemonDetailsService, private routerNavigate: Router, private cdr: ChangeDetectorRef) {}
+  constructor(private route: ActivatedRoute, private pokemonDetails: PokemonDetailsService, private routerNavigate: Router, private cdr: ChangeDetectorRef, private titleService: Title) {}
 
   ngOnInit() {
     this.route.params.subscribe({
       next: (params) => {
         this.id = params['id'];
         this.getPokemon(this.id);
+      }
+    });
+
+    this.route.queryParams.subscribe({
+      next: (queryParams) => {
+        const title = `PokeDex | ${capitalize(queryParams['name'])}`;
+        this.titleService.setTitle(title);
       }
     });
   }

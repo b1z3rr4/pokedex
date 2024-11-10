@@ -16,7 +16,7 @@
       <p class="description">
         {{ description }}
       </p>
-      <a class="know-more-btn" [routerLink]="'/details/' + id">
+      <a class="know-more-btn" [routerLink]="'/details/' + id" [queryParams]="{ name }">
         Know More
       </a>
     </div>

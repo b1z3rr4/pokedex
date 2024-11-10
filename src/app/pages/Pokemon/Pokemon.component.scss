@@ -13,9 +13,10 @@ header {
     display: flex;
     color: black;
     font-size: 10px;
+    font-weight: 600;
+    width: fit-content;
     align-items: center;
     text-decoration: none;
-    font-weight: 600;
 
     p {
       font-size: 16px;
@@ -248,14 +249,16 @@ main {
   }
 
   .abilities {
-    display: flex;
     gap: 12px;
+    width: 100%;
+    display: grid;
+    justify-content: stretch;
+    grid-template-columns: repeat(2, minmax(50%, 1fr));
 
     .ability {
       width: 100%;
       display: flex;
       font-size: 17px;
-      max-width: 160px;
       padding: 8px 16px;
       border-radius: 10px;
       background-color: #F6F8FC;
