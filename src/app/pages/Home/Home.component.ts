@@ -147,7 +147,7 @@ export class HomeComponent implements OnInit, AfterViewChecked {
     const scrollPosition = window.scrollY + window.innerHeight;
     const documentHeight = document.documentElement.scrollHeight;
 
-    if (scrollPosition >= documentHeight - (CARD_HEIGHT * 2) && this.searchTerm.length < 3) {
+    if (scrollPosition >= documentHeight - (CARD_HEIGHT * 3) && this.searchTerm.length < 3) {
       const offset = this.stateManagerService.getCurrentState(KEYS.offset, 0);
       const newOffset = offset + this.loadMore;
 
