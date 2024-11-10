@@ -112,9 +112,9 @@ export class HomeComponent implements OnInit, AfterViewChecked {
         if (search.length < 3) {
           const paginated = allPokemons.splice(0, offset + this.limit);
 
-          this.noItemsFound = false;
-
           this.setPaginatedItems(paginated);
+
+          this.noItemsFound = false;
         } else {
           const filters = allPokemons.filter(({ name }) => name.toLowerCase().search(search.toLowerCase()) !== -1);
 
@@ -147,7 +147,7 @@ export class HomeComponent implements OnInit, AfterViewChecked {
     const scrollPosition = window.scrollY + window.innerHeight;
     const documentHeight = document.documentElement.scrollHeight;
 
-    if (scrollPosition >= documentHeight - (CARD_HEIGHT * 2)) {
+    if (scrollPosition >= documentHeight - (CARD_HEIGHT * 2) && this.searchTerm.length < 3) {
       const offset = this.stateManagerService.getCurrentState(KEYS.offset, 0);
       const newOffset = offset + this.loadMore;
 
