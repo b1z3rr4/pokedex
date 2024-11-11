@@ -16,12 +16,9 @@
       <p class="description">
         {{ description }}
       </p>
-      <a class="know-more-btn" [routerLink]="'/details/' + id" [queryParams]="{ name }">
-        Know More
-      </a>
+      <a class="know-more-btn" [routerLink]="'/details/' + id" [queryParams]="{ name }"> Know More </a>
     </div>
 
-    <img [src]="imageUrl" [alt]="name"
-      class="image" />
+    <img [src]="imageUrl" [alt]="name" class="image" />
   </div>
 </div>

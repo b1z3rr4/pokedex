@@ -1,26 +1,25 @@
-<app-AppHeader></app-AppHeader>
+<app-header></app-header>
 
 <main>
   <div class="logo">
-    <app-LogoPokedex [width]="logoWidth"></app-LogoPokedex>
+    <app-logo [width]="logoWidth"></app-logo>
   </div>
   <div class="search">
     <div class="search-bar">
       <input
-      type="text"
-      class="search-input"
-      [(ngModel)]="searchTerm"
-      placeholder="Search eg, ditto or pikachu"
-      (ngModelChange)="onClearInput(searchTerm)"
-      (keydown.enter)="onSearchChange(searchTerm)"
-    />
+        type="text"
+        class="search-input"
+        [(ngModel)]="searchTerm"
+        placeholder="Search eg, ditto or pikachu"
+        (ngModelChange)="onClearInput(searchTerm)"
+        (keydown.enter)="onSearchChange(searchTerm)" />
     </div>
     <button class="search-button" (click)="onSearchChange(searchTerm)" [disabled]="searchTerm.length < 3">
       <span class="material-symbols-outlined">search</span>
     </button>
   </div>
 
-  <div *ngIf="firstLoad;">
+  <div *ngIf="firstLoad">
     <app-Loader></app-Loader>
   </div>
 
@@ -32,12 +31,15 @@
     <div class="grid">
       @for (pokemon of pokemons; track pokemon.id) {
         <div class="grid-card" [id]="pokemon.id">
-          <app-PokemonCard [id]="pokemon.id" [name]="pokemon.name"
-            [description]="getDescription(pokemon.flavor_text_entries)" [number]="pokemon.id.toString()"
-            [imageUrl]="pokemon.sprites.front_default" [types]="pokemon.types"></app-PokemonCard>
+          <app-PokemonCard
+            [id]="pokemon.id"
+            [name]="pokemon.name"
+            [description]="getDescription(pokemon.flavor_text_entries)"
+            [number]="pokemon.id.toString()"
+            [imageUrl]="pokemon.sprites.front_default"
+            [types]="pokemon.types"></app-PokemonCard>
         </div>
       }
     </div>
   </ng-template>
-
 </main>

@@ -6,10 +6,10 @@ export const routes: Routes = [
   {
     path: '',
     title: 'PokeDex | Home',
-    component: HomeComponent
+    component: HomeComponent,
   },
   {
     path: 'details/:id',
-    component: PokemonComponent
-  }
+    component: PokemonComponent,
+  },
 ];

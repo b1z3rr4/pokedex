@@ -4,5 +4,5 @@ export const KEYS = {
   offset: 'offset',
   scroll: 'scroll',
   searchName: 'searchName',
-  pokemon: 'pokemon'
-}
+  pokemon: 'pokemon',
+};

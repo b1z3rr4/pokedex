@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute, Router, RouterLink } from "@angular/router";
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { PokemonDetails } from '../../../infra/models/PokemonDetails';
 import { FlavorText, PokemonSpecie } from '../../../infra/models/PokemonSpecie';
 import { PlyrModule, PlyrComponent } from '@atom-platform/ngx-plyr';
@@ -8,12 +8,12 @@ import { PokemonDetailsService } from '../../../infra/services/PokemonDetails.ts
 import { LANGUAGE } from '../../../infra/constants/language';
 import { Title } from '@angular/platform-browser';
 import { capitalize } from '../../../infra/utils/capitalize';
-import { AppHeaderComponent } from "../../components/AppHeader/AppHeader.component";
+import { AppHeaderComponent } from '../../components/AppHeader/AppHeader.component';
 import { convertToMeters, gramsToKilograms } from '../../../infra/utils/converters';
 
 @Component({
   standalone: true,
-  selector: 'app-Pokemon',
+  selector: 'app-pokemon',
   templateUrl: './Pokemon.component.html',
   styleUrls: ['./Pokemon.component.scss'],
   imports: [CommonModule, PlyrModule, RouterLink, AppHeaderComponent],
@@ -28,26 +28,32 @@ export class PokemonComponent implements OnInit {
 
   player: Plyr | undefined;
 
-  audioSource: any = [];
+  audioSource: Plyr.Source[] = [];
 
   isGifLoaded: boolean = false;
   isGifURL: boolean = false;
 
-  constructor(private route: ActivatedRoute, private pokemonDetails: PokemonDetailsService, private routerNavigate: Router, private cdr: ChangeDetectorRef, private titleService: Title) {}
+  constructor(
+    private route: ActivatedRoute,
+    private pokemonDetails: PokemonDetailsService,
+    private routerNavigate: Router,
+    private cdr: ChangeDetectorRef,
+    private titleService: Title,
+  ) {}
 
   ngOnInit() {
     this.route.params.subscribe({
       next: (params) => {
         this.id = params['id'];
         this.getPokemon(this.id);
-      }
+      },
     });
 
     this.route.queryParams.subscribe({
       next: (queryParams) => {
         const title = `PokeDex | ${capitalize(queryParams['name'])}`;
         this.titleService.setTitle(title);
-      }
+      },
     });
   }
 
@@ -58,15 +64,15 @@ export class PokemonComponent implements OnInit {
         this.audioSource = [
           {
             src: response?.cries.latest,
-            type: 'audio/ogg'
+            type: 'audio/ogg',
           },
           {
             src: response?.cries.legacy,
-            type: 'audio/ogg'
+            type: 'audio/ogg',
           },
-        ]
-      }
-    })
+        ];
+      },
+    });
   }
 
   goNextPokemon() {
@@ -76,7 +82,7 @@ export class PokemonComponent implements OnInit {
   }
 
   goPreviousPokemon() {
-    const pokemonId =  Number(this.id) > 1 ? (Number(this.id) - 1).toString() : '1';
+    const pokemonId = Number(this.id) > 1 ? (Number(this.id) - 1).toString() : '1';
 
     this.routerNavigate.navigate(['/details', pokemonId]);
   }
@@ -99,7 +105,7 @@ export class PokemonComponent implements OnInit {
   }
 
   formatNumber() {
-    return this.pokemon?.id.toString().padStart(3, "0");
+    return this.pokemon?.id.toString().padStart(3, '0');
   }
 
   play(): void {
@@ -117,8 +123,8 @@ export class PokemonComponent implements OnInit {
       defense: 'DEF',
       'special-attack': 'SpA',
       'special-defense': 'SpD',
-      speed: 'SPD'
-    }
+      speed: 'SPD',
+    };
 
     return statsMap[stats];
   }

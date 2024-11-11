@@ -1,6 +1,6 @@
-import { PokemonEntry } from "./PokemonEntry";
-import { Generations } from "./PokemonGenerations";
-import { SprintImage, SprintOthers } from "./PokemonSprint";
+import { PokemonEntry } from './PokemonEntry';
+import { Generations } from './PokemonGenerations';
+import { SprintImage, SprintOthers } from './PokemonSprint';
 
 export interface PokemonDetails {
   // Primary information's
@@ -25,12 +25,7 @@ export interface PokemonDetails {
   sprites: SprintImage & {
     other: SprintOthers;
     versions: Generations;
-  }
-
-  // Tertiary information's Not Typed
-  held_items: any[];
-  past_types: any[];
-  past_abilities: any[];
+  };
 
   // Tertiary information's Typed
   moves: Array<Move>;
@@ -62,7 +57,7 @@ export interface Move {
     level_learned_at: number;
     move_learn_method: PokemonEntry;
     version_group: PokemonEntry;
-  }>
+  }>;
 }
 
 export interface Stat {

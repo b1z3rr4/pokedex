@@ -2,15 +2,15 @@ import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   standalone: true,
-  selector: 'app-LogoPokedex',
+  selector: 'app-logo',
   templateUrl: './LogoPokedex.component.html',
-  styleUrls: ['./LogoPokedex.component.scss']
+  styleUrls: ['./LogoPokedex.component.scss'],
 })
 export class LogoPokedexComponent implements OnInit {
   @Input() width = 495;
   @Input() height = 152;
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit() {
     const width = 495;
@@ -26,5 +26,4 @@ export class LogoPokedexComponent implements OnInit {
       this.height = adjustedHeight;
     }
   }
-
 }

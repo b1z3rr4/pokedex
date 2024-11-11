@@ -1,15 +1,15 @@
 import { CommonModule } from '@angular/common';
-import { Component, HostListener, OnInit } from '@angular/core';
-import { LogoPokedexComponent } from "../LogoPokedex/LogoPokedex.component";
+import { Component, HostListener } from '@angular/core';
+import { LogoPokedexComponent } from '../LogoPokedex/LogoPokedex.component';
 
 @Component({
   standalone: true,
-  selector: 'app-AppHeader',
+  selector: 'app-header',
   templateUrl: './AppHeader.component.html',
   styleUrls: ['./AppHeader.component.scss'],
-  imports: [CommonModule, LogoPokedexComponent]
+  imports: [CommonModule, LogoPokedexComponent],
 })
-export class AppHeaderComponent implements OnInit {
+export class AppHeaderComponent {
   screenWidth: number = window.innerWidth;
   prevScreenWidth: number = window.innerWidth;
 
@@ -22,13 +22,13 @@ export class AppHeaderComponent implements OnInit {
     this.updateLogoWidth();
   }
 
-  ngOnInit() {
-  }
-
   @HostListener('window:resize', ['$event'])
-  onResize(event: any) {
+  onResize(event: UIEvent) {
     this.prevScreenWidth = this.screenWidth;
-    this.screenWidth = event.target.innerWidth;
+
+    if (event.target instanceof Window) {
+      this.screenWidth = event.target.innerWidth;
+    }
 
     this.updateLogoWidth();
   }
@@ -36,5 +36,4 @@ export class AppHeaderComponent implements OnInit {
   updateLogoWidth() {
     this.logoWidth = Math.max(this.minWidth, Math.min(this.maxWidth, (this.screenWidth / 2) * 0.4));
   }
-
 }

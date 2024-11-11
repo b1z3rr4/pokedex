@@ -7,10 +7,13 @@ import { PokemonSpecie } from '../../models/PokemonSpecie';
 import { CacheService } from '../Cache/Cache.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class PokemonDetailsService {
-  constructor(private httpClient: HttpClient, private cacheService: CacheService) {}
+  constructor(
+    private httpClient: HttpClient,
+    private cacheService: CacheService,
+  ) {}
 
   getPokemon(id: string): Observable<PokemonDetails & PokemonSpecie> {
     const url = POKEMON_API + 'pokemon' + `/${id}/`;
@@ -24,34 +27,34 @@ export class PokemonDetailsService {
       }
 
       return of(cachedData).pipe(
-        mergeMap(response => {
+        mergeMap((response) => {
           return this.getNextUrl<PokemonSpecie>(response.species.url).pipe(
             map((specieInfo) => ({
               ...response,
               ...specieInfo,
-            }))
+            })),
           );
         }),
-        map(pokemonDetails => {
+        map((pokemonDetails) => {
           this.cacheService.cacheData(id, pokemonDetails);
           return pokemonDetails;
-        })
+        }),
       );
     }
 
     return this.httpClient.get<PokemonDetails>(url).pipe(
-      mergeMap(response => {
+      mergeMap((response) => {
         return this.getNextUrl<PokemonSpecie>(response.species.url).pipe(
           map((specieInfo) => ({
             ...response,
             ...specieInfo,
-          }))
+          })),
         );
       }),
-      map(pokemonDetails => {
+      map((pokemonDetails) => {
         this.cacheService.cacheData(id, pokemonDetails);
         return pokemonDetails;
-      })
+      }),
     );
   }
 
@@ -63,10 +66,10 @@ export class PokemonDetailsService {
     }
 
     return this.httpClient.get<TResult>(url).pipe(
-      map(response => {
+      map((response) => {
         this.cacheService.cacheData(url, response);
         return response;
-      })
+      }),
     );
   }
 }

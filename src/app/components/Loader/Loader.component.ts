@@ -4,13 +4,10 @@ import { Component, OnInit } from '@angular/core';
   standalone: true,
   selector: 'app-Loader',
   templateUrl: './Loader.component.html',
-  styleUrls: ['./Loader.component.scss']
+  styleUrls: ['./Loader.component.scss'],
 })
 export class LoaderComponent implements OnInit {
+  constructor() {}
 
-  constructor() { }
-
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }

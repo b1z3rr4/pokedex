@@ -1,4 +1,4 @@
-import { PokemonEntry } from "./PokemonEntry";
+import { PokemonEntry } from './PokemonEntry';
 
 export interface PokemonSpecie {
   base_happiness: number;

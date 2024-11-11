@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
+import { CacheState } from '../../utils/types';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CacheService {
-  private cache: Map<string, any> = new Map();
+  private cache: Map<string, CacheState<unknown>> = new Map();
   private cacheExpirationTime: number = 3600000;
 
   constructor() {}
@@ -13,8 +14,8 @@ export class CacheService {
     return Date.now() - timestamp > this.cacheExpirationTime;
   }
 
-  public cacheData(key: string, data: any): void {
-    const cacheEntry = { data, timestamp: Date.now() };
+  public cacheData<T>(key: string, data: T): void {
+    const cacheEntry: CacheState<T> = { data, timestamp: Date.now() };
     this.cache.set(key, cacheEntry);
   }
 
@@ -22,7 +23,7 @@ export class CacheService {
     const cachedData = this.cache.get(key);
 
     if (cachedData && !this.isCacheExpired(cachedData.timestamp)) {
-      return cachedData.data;
+      return cachedData.data as T;
     }
 
     this.cache.delete(key);

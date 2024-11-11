@@ -3,4 +3,9 @@ export type ResponseApi<T> = {
   next: string;
   previous: string;
   results: T;
-}
+};
+
+export type CacheState<T> = {
+  data: T;
+  timestamp: number;
+};

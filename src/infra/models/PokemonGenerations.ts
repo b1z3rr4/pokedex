@@ -23,7 +23,7 @@ interface AnimatedSprite extends Sprite {
 }
 
 interface GenerationI {
-  "red-blue": Sprite;
+  'red-blue': Sprite;
   yellow: Sprite;
 }
 
@@ -34,31 +34,31 @@ interface GenerationII {
 }
 
 interface GenerationIII {
-  emerald: Pick<Sprite, "front_default" | "front_shiny">;
-  "firered-leafgreen": Sprite;
-  "ruby-sapphire": Sprite;
+  emerald: Pick<Sprite, 'front_default' | 'front_shiny'>;
+  'firered-leafgreen': Sprite;
+  'ruby-sapphire': Sprite;
 }
 
 interface GenerationIV {
-  "diamond-pearl": Sprite;
-  "heartgold-soulsilver": Sprite;
+  'diamond-pearl': Sprite;
+  'heartgold-soulsilver': Sprite;
   platinum: Sprite;
 }
 
 interface GenerationV {
-  "black-white": Sprite & { animated: AnimatedSprite };
+  'black-white': Sprite & { animated: AnimatedSprite };
 }
 
 interface GenerationVI {
-  "omegaruby-alphasapphire": Pick<Sprite, "front_default" | "front_shiny" | "front_female" | "front_shiny_female">;
-  "x-y": Pick<Sprite, "front_default" | "front_shiny" | "front_female" | "front_shiny_female">;
+  'omegaruby-alphasapphire': Pick<Sprite, 'front_default' | 'front_shiny' | 'front_female' | 'front_shiny_female'>;
+  'x-y': Pick<Sprite, 'front_default' | 'front_shiny' | 'front_female' | 'front_shiny_female'>;
 }
 
 export interface Generations {
-  "generation-i": GenerationI;
-  "generation-ii": GenerationII;
-  "generation-iii": GenerationIII;
-  "generation-iv": GenerationIV;
-  "generation-v": GenerationV;
-  "generation-vi": GenerationVI;
+  'generation-i': GenerationI;
+  'generation-ii': GenerationII;
+  'generation-iii': GenerationIII;
+  'generation-iv': GenerationIV;
+  'generation-v': GenerationV;
+  'generation-vi': GenerationVI;
 }

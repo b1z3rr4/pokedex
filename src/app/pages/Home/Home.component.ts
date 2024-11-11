@@ -1,7 +1,7 @@
 import { AfterViewChecked, Component, HostListener, OnInit } from '@angular/core';
 import { ListPokemonService } from '../../../infra/services/ListPokemon/ListPokemon.service';
 import { PokemonDetails } from '../../../infra/models/PokemonDetails';
-import { PokemonCardComponent } from "../../components/PokemonCard/PokemonCard.component";
+import { PokemonCardComponent } from '../../components/PokemonCard/PokemonCard.component';
 import { FlavorText, PokemonSpecie } from '../../../infra/models/PokemonSpecie';
 import { LANGUAGE } from '../../../infra/constants/language';
 import { PokemonEntry } from '../../../infra/models/PokemonEntry';
@@ -10,17 +10,17 @@ import { StateManagerService } from '../../../infra/services/StateManager/StateM
 import { KEYS } from '../../../infra/constants/keys';
 import { CARD_HEIGHT } from '../../../infra/constants/variables';
 import { ActivatedRoute, Router } from '@angular/router';
-import { LogoPokedexComponent } from "../../components/LogoPokedex/LogoPokedex.component";
-import { AppHeaderComponent } from "../../components/AppHeader/AppHeader.component";
+import { LogoPokedexComponent } from '../../components/LogoPokedex/LogoPokedex.component';
+import { AppHeaderComponent } from '../../components/AppHeader/AppHeader.component';
 import { CommonModule } from '@angular/common';
-import { LoaderComponent } from "../../components/Loader/Loader.component";
+import { LoaderComponent } from '../../components/Loader/Loader.component';
 
 @Component({
-  selector: 'app-Home',
+  selector: 'app-home',
   standalone: true,
   templateUrl: './Home.component.html',
   styleUrls: ['./Home.component.scss'],
-  imports: [PokemonCardComponent, FormsModule, LogoPokedexComponent, AppHeaderComponent, CommonModule, LoaderComponent]
+  imports: [PokemonCardComponent, FormsModule, LogoPokedexComponent, AppHeaderComponent, CommonModule, LoaderComponent],
 })
 export class HomeComponent implements OnInit, AfterViewChecked {
   pokemons: Array<PokemonDetails & PokemonSpecie> = [];
@@ -40,13 +40,18 @@ export class HomeComponent implements OnInit, AfterViewChecked {
 
   noItemsFound = false;
 
-  constructor(private stateManagerService: StateManagerService, private listPokemon: ListPokemonService, private route: ActivatedRoute, private router: Router) {
+  constructor(
+    private stateManagerService: StateManagerService,
+    private listPokemon: ListPokemonService,
+    private route: ActivatedRoute,
+    private router: Router,
+  ) {
     this.updateLogoWidth();
   }
 
   // ng directives
   ngOnInit() {
-    this.route.fragment.subscribe(fragment => {
+    this.route.fragment.subscribe((fragment) => {
       if (fragment) {
         this.scrollToElement(fragment);
       }
@@ -59,7 +64,7 @@ export class HomeComponent implements OnInit, AfterViewChecked {
   }
 
   ngAfterViewChecked() {
-    this.route.fragment.subscribe(fragment => {
+    this.route.fragment.subscribe((fragment) => {
       if (fragment) {
         this.scrollToElement(fragment);
       }
@@ -73,16 +78,16 @@ export class HomeComponent implements OnInit, AfterViewChecked {
         if (allPokemons.length === 0) {
           this.getPokemonsList(0, this.limit);
         }
-      }
-    })
+      },
+    });
   }
 
   subscribePaginatedList() {
     this.stateManagerService.getState(KEYS.paginatedList, []).subscribe({
       next: (paginatedList) => {
         this.getPokemonsDetails(paginatedList);
-      }
-    })
+      },
+    });
   }
 
   subscribeOffset() {
@@ -99,8 +104,8 @@ export class HomeComponent implements OnInit, AfterViewChecked {
 
           this.setPaginatedItems(newValue);
         }
-      }
-    })
+      },
+    });
   }
 
   subscribeSearchName() {
@@ -128,8 +133,8 @@ export class HomeComponent implements OnInit, AfterViewChecked {
 
           this.setPaginatedItems(filters);
         }
-      }
-    })
+      },
+    });
   }
 
   // changes
@@ -149,8 +154,7 @@ export class HomeComponent implements OnInit, AfterViewChecked {
     const scrollPosition = window.scrollY + window.innerHeight;
     const documentHeight = document.documentElement.scrollHeight;
 
-
-    if (scrollPosition >= documentHeight - (CARD_HEIGHT * 3) && this.searchTerm.length < 3) {
+    if (scrollPosition >= documentHeight - CARD_HEIGHT * 3 && this.searchTerm.length < 3) {
       this.clearFragment();
 
       const offset = this.stateManagerService.getCurrentState(KEYS.offset, 0);
@@ -164,9 +168,12 @@ export class HomeComponent implements OnInit, AfterViewChecked {
   }
 
   @HostListener('window:resize', ['$event'])
-  onResize(event: any) {
+  onResize(event: UIEvent) {
     this.prevScreenWidth = this.screenWidth;
-    this.screenWidth = event.target.innerWidth;
+
+    if (event.target instanceof Window) {
+      this.screenWidth = event.target.innerWidth;
+    }
 
     this.updateLogoWidth();
   }
@@ -187,8 +194,8 @@ export class HomeComponent implements OnInit, AfterViewChecked {
       },
       error: () => {
         this.firstLoad = false;
-      }
-    })
+      },
+    });
   }
 
   getPokemonsDetails(pokemonList: Array<PokemonEntry>) {
@@ -201,8 +208,8 @@ export class HomeComponent implements OnInit, AfterViewChecked {
       },
       error: () => {
         this.isLoading = false;
-      }
-    })
+      },
+    });
   }
 
   // utils
@@ -222,7 +229,11 @@ export class HomeComponent implements OnInit, AfterViewChecked {
 
     if (element) {
       const rect = element.getBoundingClientRect();
-      const isVisible = rect.top >= 0 && rect.left >= 0 && rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) && rect.right <= (window.innerWidth || document.documentElement.clientWidth);
+      const isVisible =
+        rect.top >= 0 &&
+        rect.left >= 0 &&
+        rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+        rect.right <= (window.innerWidth || document.documentElement.clientWidth);
 
       if (!isVisible) {
         element.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
@@ -230,7 +241,6 @@ export class HomeComponent implements OnInit, AfterViewChecked {
 
       this.clearFragment();
     }
-
   }
 
   private clearFragment() {
@@ -243,5 +253,4 @@ export class HomeComponent implements OnInit, AfterViewChecked {
   updateLogoWidth() {
     this.logoWidth = Math.max(this.minWidth, Math.min(this.maxWidth, this.screenWidth * 0.4));
   }
-
 }

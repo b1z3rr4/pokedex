@@ -1,22 +1,24 @@
-<app-AppHeader></app-AppHeader>
+<app-header></app-header>
 
 <div class="subheader">
   <a [routerLink]="['/']" [fragment]="id" class="back-btn">
-    <span class="material-symbols-outlined">
-      arrow_back
-    </span>
+    <span class="material-symbols-outlined"> arrow_back </span>
     <p>Back</p>
   </a>
 </div>
 
 <main>
   <div class="card">
-
     <div class="image">
-      <img [ngClass]="{
-        'static': !isGifURL,
-        'animated': isGifURL
-      }" *ngIf="pokemon" [src]="getImageUrl()" (load)="onGifLoad()" [alt]="pokemon.name" />
+      <img
+        [ngClass]="{
+          static: !isGifURL,
+          animated: isGifURL,
+        }"
+        *ngIf="pokemon"
+        [src]="getImageUrl()"
+        (load)="onGifLoad()"
+        [alt]="pokemon.name" />
     </div>
 
     <div class="details">
@@ -26,19 +28,22 @@
         <div class="pokemon-action-name">
           <h1 class="pokemon-name">{{ pokemon?.name }}</h1>
 
-          <div class="hidden" plyr style="width: 640px;" [plyrType]="'audio'" [plyrSources]="audioSource"
+          <div
+            class="hidden"
+            plyr
+            style="width: 640px"
+            [plyrType]="'audio'"
+            [plyrSources]="audioSource"
             (plyrInit)="player = $event"></div>
 
           <button (click)="play()" class="audio-btn">
-            <span class="material-symbols-outlined">
-              volume_up
-            </span>
+            <span class="material-symbols-outlined"> volume_up </span>
           </button>
         </div>
 
         <div class="type-tags">
           @for (type of pokemon?.types; track type.type.name) {
-          <span [ngClass]="['type-tag', type.type.name]">{{ type.type.name }}</span>
+            <span [ngClass]="['type-tag', type.type.name]">{{ type.type.name }}</span>
           }
         </div>
 
@@ -48,11 +53,11 @@
 
         <div class="sizes">
           <div class="size">
-            <p>Height: </p>
+            <p>Height:</p>
             <span>{{ heightFormatted(pokemon?.height) }}</span>
           </div>
           <div class="size">
-            <p>Weight: </p>
+            <p>Weight:</p>
             <span>{{ weightFormatted(pokemon?.weight) }}</span>
           </div>
         </div>
@@ -62,10 +67,10 @@
         <h2>Stats</h2>
         <div class="stats-grid">
           @for (stats of pokemon?.stats; track stats.stat.name) {
-          <div [ngClass]="['stats-item', stats.stat.name]">
-            <p class="stats-title"> {{ getStatsDescription(stats.stat.name) }} </p>
-            <p> {{ stats.base_stat }} </p>
-          </div>
+            <div [ngClass]="['stats-item', stats.stat.name]">
+              <p class="stats-title">{{ getStatsDescription(stats.stat.name) }}</p>
+              <p>{{ stats.base_stat }}</p>
+            </div>
           }
         </div>
       </div>
@@ -74,13 +79,12 @@
         <h2>Abilities</h2>
         <div class="abilities">
           @for (ability of pokemon?.abilities; track ability.ability.name) {
-          <div class="ability">
-            <p>{{ getAbilityFormatted(ability.ability.name) }}</p>
-          </div>
+            <div class="ability">
+              <p>{{ getAbilityFormatted(ability.ability.name) }}</p>
+            </div>
           }
         </div>
       </div>
     </div>
-
   </div>
 </main>
