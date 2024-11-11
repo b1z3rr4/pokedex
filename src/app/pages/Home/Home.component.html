@@ -20,22 +20,24 @@
     </button>
   </div>
 
-  <div *ngIf="isLoading && !noItemsFound;">
+  <div *ngIf="firstLoad;">
     <app-Loader></app-Loader>
   </div>
 
-  <div class="grid" *ngIf="!noItemsFound; else noItemsTemplate">
-    @for (pokemon of pokemons; track pokemon.id) {
-    <div class="grid-card" [id]="pokemon.id">
-      <app-PokemonCard [id]="pokemon.id" [name]="pokemon.name"
-        [description]="getDescription(pokemon.flavor_text_entries)" [number]="pokemon.id.toString()"
-        [imageUrl]="pokemon.sprites.front_default" [types]="pokemon.types"></app-PokemonCard>
-    </div>
-    }
+  <div *ngIf="noItemsFound; else list">
+    <p class="message-report">No items found!</p>
   </div>
 
-  <ng-template #noItemsTemplate>
-    <p class="message-report">No items found!</p>
+  <ng-template #list>
+    <div class="grid">
+      @for (pokemon of pokemons; track pokemon.id) {
+        <div class="grid-card" [id]="pokemon.id">
+          <app-PokemonCard [id]="pokemon.id" [name]="pokemon.name"
+            [description]="getDescription(pokemon.flavor_text_entries)" [number]="pokemon.id.toString()"
+            [imageUrl]="pokemon.sprites.front_default" [types]="pokemon.types"></app-PokemonCard>
+        </div>
+      }
+    </div>
   </ng-template>
 
 </main>

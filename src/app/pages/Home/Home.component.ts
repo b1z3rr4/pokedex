@@ -28,6 +28,7 @@ export class HomeComponent implements OnInit, AfterViewChecked {
   limit = 42;
   loadMore = 21;
   isLoading = false;
+  firstLoad = false;
 
   screenWidth: number = window.innerWidth;
   prevScreenWidth: number = window.innerWidth;
@@ -156,6 +157,7 @@ export class HomeComponent implements OnInit, AfterViewChecked {
       const newOffset = offset + this.loadMore;
 
       if (!this.isLoading && newOffset < 1011) {
+        this.isLoading = true;
         this.stateManagerService.setState(KEYS.offset, newOffset);
       }
     }
@@ -171,6 +173,8 @@ export class HomeComponent implements OnInit, AfterViewChecked {
 
   // services
   getPokemonsList(offset: number, limit: number) {
+    this.firstLoad = true;
+
     this.listPokemon.getPokemons().subscribe({
       next: (data) => {
         this.stateManagerService.setState(KEYS.allPokemons, data.results);
@@ -178,6 +182,11 @@ export class HomeComponent implements OnInit, AfterViewChecked {
         const paginated = [...data.results].splice(offset, limit);
 
         this.setPaginatedItems(paginated);
+
+        this.firstLoad = false;
+      },
+      error: () => {
+        this.firstLoad = false;
       }
     })
   }
